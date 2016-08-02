@@ -1,0 +1,17 @@
+machine:
+  node:
+    version: 5.11.1
+
+checkout:
+  post:
+    - git submodule update --init
+
+dependencies:
+  cache_directories:
+    - "wp-e2e-tests/node_modules"
+  override:
+    - cd wp-e2e-tests && npm install
+
+test:
+  override:
+    - cd wp-e2e-tests && env BROWSERSIZE=desktop ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack/ lib/after.js
