@@ -7,8 +7,6 @@ checkout:
     - git clone git@github.com:Automattic/wp-e2e-tests.git
 
 dependencies:
-  cache_directories:
-    - "wp-e2e-tests/node_modules"
   override:
     - cd wp-e2e-tests && npm install
 
