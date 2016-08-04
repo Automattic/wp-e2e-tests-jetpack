@@ -20,3 +20,4 @@ dependencies:
 test:
   override:
     - cd wp-e2e-tests && env BROWSERSIZE=desktop ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack/ lib/after.js
+    - cd wp-e2e-tests && env BROWSERSIZE=mobile ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack/ lib/after.js
