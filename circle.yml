@@ -9,7 +9,7 @@ general:
 
 checkout:
   post:
-    - git submodule update --remote
+    - git submodule update --remote --init
 
 dependencies:
   cache_directories:
@@ -19,5 +19,5 @@ dependencies:
 
 test:
   override:
-    - cd wp-e2e-tests && env BROWSERSIZE=desktop ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack/ lib/after.js
     - cd wp-e2e-tests && env BROWSERSIZE=mobile ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack/ lib/after.js
+    - cd wp-e2e-tests && env BROWSERSIZE=desktop ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack/ lib/after.js
