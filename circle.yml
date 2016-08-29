@@ -9,7 +9,7 @@ general:
 
 checkout:
   post:
-    - git submodule update --remote --init
+    - git submodule update --init --remote
 
 dependencies:
   cache_directories:
