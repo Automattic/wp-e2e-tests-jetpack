@@ -16,9 +16,10 @@ dependencies:
   cache_directories:
     - "wp-e2e-tests/node_modules"
   override:
+    - cd wp-e2e-tests && npm pack lib/reporter
+    - cd wp-e2e-tests && npm install ./spec-xunit-slack-reporter-0.0.1.tgz
     - cd wp-e2e-tests && npm install
 
 test:
   override:
-    - cd wp-e2e-tests && env BROWSERSIZE=desktop ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack-calypso/ lib/after.js
-    - cd wp-e2e-tests && env BROWSERSIZE=mobile ./node_modules/mocha/bin/mocha --compilers js:babel-register specs-jetpack-calypso/ lib/after.js
+    - cd wp-e2e-tests && ./run.sh -R -j $RUN_ARGS
