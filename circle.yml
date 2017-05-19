@@ -16,8 +16,6 @@ dependencies:
   cache_directories:
     - "wp-e2e-tests/node_modules"
   override:
-    - cd wp-e2e-tests && npm pack lib/reporter
-    - cd wp-e2e-tests && npm install ./spec-xunit-slack-reporter-0.0.1.tgz
     - cd wp-e2e-tests && npm install
 
 test:
