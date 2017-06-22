@@ -29,17 +29,17 @@ jobs:
       - persist_to_workspace:
           root: wp-e2e-tests
   bluehost:
+    <<: *jetpack_host_defaults
     environment:
       JETPACKHOST: BLUEHOST
-    <<: *jetpack_host_defaults
   pressable:
+    <<: *jetpack_host_defaults
     environment:
       JETPACKHOST: PRESSABLE
-    <<: *jetpack_host_defaults
   godaddy:
+    <<: *jetpack_host_defaults
     environment:
       JETPACKHOST: GODADDY
-    <<: *jetpack_host_defaults
   gather_artifacts:
     <<: *defaults
     steps:
