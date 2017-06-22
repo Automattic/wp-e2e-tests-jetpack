@@ -1,7 +1,6 @@
 version: 2
 jobs:
-  configure:
-    parallelism: 2
+  build:
     working_directory: /wp-e2e-tests-jetpack
     docker:
       - image: hoverduck/wp-e2e-tests:0.0.2
@@ -36,7 +35,7 @@ workflows:
   version: 2
   test_jetpack_hosts:
     jobs:
-      - configure
+      - build
       - bluehost
       - pressable
       - godaddy
