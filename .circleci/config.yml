@@ -10,6 +10,7 @@ jetpack_host_defaults: &jetpack_host_defaults
   steps:
      - attach_workspace:
          at: /wp-e2e-tests/wp-e2e-tests
+     - run: pwd
      - run: git checkout origin/${E2E_BRANCH-master}
      - run: ./run.sh -R -j
 version: 2
