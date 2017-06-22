@@ -5,6 +5,13 @@ defaults: &defaults
       user: root
       environment:
         NODE_ENV: test
+jetpack_host_defaults: &jetpack_host_defaults
+  <<: *defaults
+  working_directory: /wp-e2e-tests-jetpack/wp-e2e-tests
+  steps:
+     - attach_workspace:
+         at: /wp-e2e-tests-jetpack/wp-e2e-tests
+     - run: ./run.sh -R -j
 version: 2
 jobs:
   configure:
@@ -22,23 +29,17 @@ jobs:
       - persist_to_workspace:
           root: wp-e2e-tests
   bluehost:
-    <<: *defaults
-    steps:
-       - attach_workspace:
-           at: /wp-e2e-tests-jetpack/wp-e2e-tests
-       - run: ./wp-e2e-tests/run.sh -R -j -H BLUEHOST
+    <<: *jetpack_host_defaults
+    environment:
+      JETPACKHOST: BLUEHOST
   pressable:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: /wp-e2e-tests-jetpack/wp-e2e-tests
-      - run: ./wp-e2e-tests/run.sh -R -j -H PRESSABLE
+    <<: *jetpack_host_defaults
+    environment:
+      JETPACKHOST: PRESSABLE
   godaddy:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: /wp-e2e-tests-jetpack/wp-e2e-tests
-      - run: ./wp-e2e-tests/run.sh -R -j -H GODADDY
+    <<: *jetpack_host_defaults
+    environment:
+      JETPACKHOST: GODADDY
   gather_artifacts:
     <<: *defaults
     steps:
