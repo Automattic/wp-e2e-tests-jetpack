@@ -2,6 +2,7 @@ defaults: &defaults
   working_directory: /wp-e2e-tests-jetpack
   docker:
     - image: hoverduck/wp-e2e-tests:0.0.2
+      user: root
       environment:
         NODE_ENV: test
 version: 2
