@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  configure:
     parallelism: 2
     working_directory: /wp-e2e-tests-jetpack
     docker:
@@ -23,19 +23,20 @@ jobs:
           path: wp-e2e-tests/reports/
       - store_artifacts:
           path: wp-e2e-tests/screenshots/
-    bluehost:
-      steps:
-        - run: ./wp-e2e-tests/run.sh -R -j -H BLUEHOST
-    pressable:
-      steps:
-        - run: ./wp-e2e-tests/run.sh -R -j -H PRESSABLE
-    godaddy:
-      steps:
-        - run: ./wp-e2e-tests/run.sh -R -j -H GODADDY
+  bluehost:
+    steps:
+       - run: ./wp-e2e-tests/run.sh -R -j -H BLUEHOST
+  pressable:
+    steps:
+      - run: ./wp-e2e-tests/run.sh -R -j -H PRESSABLE
+  godaddy:
+    steps:
+      - run: ./wp-e2e-tests/run.sh -R -j -H GODADDY
 workflows:
   version: 2
   test_jetpack_hosts:
     jobs:
+      - configure
       - bluehost
       - pressable
       - godaddy
