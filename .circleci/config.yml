@@ -1,11 +1,13 @@
+defaults: &defaults
+  working_directory: /wp-e2e-tests-jetpack
+  docker:
+    - image: hoverduck/wp-e2e-tests:0.0.2
+      environment:
+        NODE_ENV: test
 version: 2
 jobs:
-  build:
-    working_directory: /wp-e2e-tests-jetpack
-    docker:
-      - image: hoverduck/wp-e2e-tests:0.0.2
-        environment:
-                NODE_ENV: test
+  configure:
+    <<: *defaults
     steps:
       - checkout
       - run: git submodule init && git submodule update --remote --force
@@ -16,26 +18,51 @@ jobs:
           paths:
             - wp-e2e-tests/node_modules
           key: << checksum "wp-e2e-tests/package.json" >>
+      - persist_to_workspace:
+          root: /wp-e2e-tests
+  bluehost:
+    <<: *defaults
+    steps:
+       - attach_workspace:
+           at: /wp-e2e-tests-jetpack/wp-e2e-tests
+       - run: ./wp-e2e-tests/run.sh -R -j -H BLUEHOST
+  pressable:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /wp-e2e-tests-jetpack/wp-e2e-tests
+      - run: ./wp-e2e-tests/run.sh -R -j -H PRESSABLE
+  godaddy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /wp-e2e-tests-jetpack/wp-e2e-tests
+      - run: ./wp-e2e-tests/run.sh -R -j -H GODADDY
+  gather_artifacts:
+    <<: *defaults
+    steps:
       - store_test_results:
           path: wp-e2e-tests/reports/
       - store_artifacts:
           path: wp-e2e-tests/reports/
       - store_artifacts:
           path: wp-e2e-tests/screenshots/
-  bluehost:
-    steps:
-       - run: ./wp-e2e-tests/run.sh -R -j -H BLUEHOST
-  pressable:
-    steps:
-      - run: ./wp-e2e-tests/run.sh -R -j -H PRESSABLE
-  godaddy:
-    steps:
-      - run: ./wp-e2e-tests/run.sh -R -j -H GODADDY
 workflows:
   version: 2
   test_jetpack_hosts:
     jobs:
-      - build
-      - bluehost
-      - pressable
-      - godaddy
+      - configure
+      - bluehost:
+          requires:
+            - configure
+      - pressable:
+          requires:
+            - configure
+      - godaddy:
+          requires:
+            - configure
+      - godaddy:
+          requires:
+            - bluehost
+            - pressable
+            - godaddy
