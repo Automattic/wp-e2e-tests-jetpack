@@ -1,16 +1,16 @@
 defaults: &defaults
-  working_directory: /wp-e2e-tests-jetpack
+  working_directory: /wp-e2e-tests
   docker:
     - image: hoverduck/wp-e2e-tests:0.0.2
-      user: root
       environment:
         NODE_ENV: test
 jetpack_host_defaults: &jetpack_host_defaults
   <<: *defaults
-  working_directory: /wp-e2e-tests-jetpack/wp-e2e-tests
+  working_directory: /wp-e2e-tests/wp-e2e-tests
   steps:
      - attach_workspace:
-         at: /wp-e2e-tests-jetpack/wp-e2e-tests
+         at: /wp-e2e-tests/wp-e2e-tests
+     - run: git checkout origin/${E2E_BRANCH-master}
      - run: ./run.sh -R -j
 version: 2
 jobs:
@@ -29,17 +29,17 @@ jobs:
       - persist_to_workspace:
           root: wp-e2e-tests
   bluehost:
-    <<: *jetpack_host_defaults
     environment:
       JETPACKHOST: BLUEHOST
-  pressable:
     <<: *jetpack_host_defaults
+  pressable:
     environment:
       JETPACKHOST: PRESSABLE
-  godaddy:
     <<: *jetpack_host_defaults
+  godaddy:
     environment:
       JETPACKHOST: GODADDY
+    <<: *jetpack_host_defaults
   gather_artifacts:
     <<: *defaults
     steps:
