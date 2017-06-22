@@ -61,7 +61,7 @@ workflows:
       - godaddy:
           requires:
             - configure
-      - godaddy:
+      - gather_artifacts:
           requires:
             - bluehost
             - pressable
