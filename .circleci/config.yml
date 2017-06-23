@@ -9,9 +9,8 @@ jetpack_host_defaults: &jetpack_host_defaults
   working_directory: /wp-e2e-tests-jetpack
   steps:
      - attach_workspace:
-         at: /wp-e2e-tests-jetpack/wp-e2e-tests
-     - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
-     - run: cd wp-e2e-tests && ./run.sh -R -j
+         at: /wp-e2e-tests-jetpack
+     - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && ./run.sh -R -j
 version: 2
 jobs:
   configure:
@@ -27,8 +26,7 @@ jobs:
             - wp-e2e-tests/node_modules
           key: << checksum "wp-e2e-tests/package.json" >>
       - persist_to_workspace:
-          root: wp-e2e-tests
-          paths: .
+          root: .
   bluehost:
     <<: *jetpack_host_defaults
     environment:
