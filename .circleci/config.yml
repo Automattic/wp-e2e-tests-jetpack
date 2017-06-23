@@ -28,6 +28,7 @@ jobs:
           key: << checksum "wp-e2e-tests/package.json" >>
       - persist_to_workspace:
           root: wp-e2e-tests
+          paths: .
   bluehost:
     <<: *jetpack_host_defaults
     environment:
