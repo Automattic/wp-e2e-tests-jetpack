@@ -1,16 +1,15 @@
 defaults: &defaults
-  working_directory: /wp-e2e-tests
+  working_directory: /wp-e2e-tests-jetpack
   docker:
-    - image: hoverduck/wp-e2e-tests:0.0.2
+    - image: hoverduck/wp-e2e-tests:0.0.3
       environment:
         NODE_ENV: test
 jetpack_host_defaults: &jetpack_host_defaults
   <<: *defaults
-  working_directory: /wp-e2e-tests/wp-e2e-tests
+  working_directory: /wp-e2e-tests-jetpack/wp-e2e-tests
   steps:
      - attach_workspace:
-         at: /wp-e2e-tests/wp-e2e-tests
-     - run: pwd
+         at: /wp-e2e-tests-jetpack/wp-e2e-tests
      - run: git checkout origin/${E2E_BRANCH-master}
      - run: ./run.sh -R -j
 version: 2
