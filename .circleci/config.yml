@@ -6,12 +6,12 @@ defaults: &defaults
         NODE_ENV: test
 jetpack_host_defaults: &jetpack_host_defaults
   <<: *defaults
-  working_directory: /wp-e2e-tests-jetpack/wp-e2e-tests
+  working_directory: /wp-e2e-tests-jetpack
   steps:
      - attach_workspace:
          at: /wp-e2e-tests-jetpack/wp-e2e-tests
-     - run: git checkout origin/${E2E_BRANCH-master}
-     - run: ./run.sh -R -j
+     - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
+     - run: cd wp-e2e-tests && ./run.sh -R -j
 version: 2
 jobs:
   configure:
