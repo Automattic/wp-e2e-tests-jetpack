@@ -1,8 +1,4 @@
 machine:
-  environment:
-    NODE_ENV: test
-    TARGET: JETPACK
-    NODE_CONFIG: {}
   node:
     version: 8.9.3
 
@@ -24,4 +20,4 @@ dependencies:
 
 test:
   override:
-    - cd wp-e2e-tests && git checkout origin/try/use-encrypted-config && ./run.sh -R -j $RUN_ARGS
+    - cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && ./run.sh -R -j $RUN_ARGS
