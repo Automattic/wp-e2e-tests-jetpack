@@ -15,17 +15,14 @@ checkout:
   post:
     - git submodule init
     - git submodule update --remote --force
-    - cd wp-e2e-tests
-    - git checkout origin/try/use-encrypted-config
+    - cd wp-e2e-tests && git checkout origin/try/use-encrypted-config
 
 dependencies:
   cache_directories:
     - "wp-e2e-tests/node_modules"
     - "wp-e2e-tests/temp"
   override:
-    - cd wp-e2e-tests
-    - npm install
-    - npm run decryptconfig
+    - cd wp-e2e-tests && npm install && npm run decryptconfig
 
 test:
   override:
