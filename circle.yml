@@ -1,4 +1,8 @@
 machine:
+  environment:
+    NODE_ENV: test
+    TARGET: JETPACK
+    JETPACKHOST: PRESSABLE
   node:
     version: 8.9.3
 
@@ -20,4 +24,4 @@ dependencies:
 
 test:
   override:
-    - cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && ./run.sh -R -j $RUN_ARGS
+    - cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && npm run decryptconfig && ./run.sh -R -j $RUN_ARGS
