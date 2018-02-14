@@ -2,6 +2,7 @@ machine:
   environment:
     NODE_ENV: test
     TARGET: JETPACK
+    JETPACKHOST: PRESSABLE
   node:
     version: 8.9.3
 
