@@ -10,10 +10,10 @@ jobs:
           JETPACKHOST: PRESSABLE
     steps:
       - checkout
-      - run git submodule init
-      - run git submodule update --remote --force
-      - run cd wp-e2e-tests && npm install
-      - run cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && npm run decryptconfig && ./run.sh -R -j $RUN_ARGS
+      - run: git submodule init
+      - run: git submodule update --remote --force
+      - run: cd wp-e2e-tests && npm install
+      - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && npm run decryptconfig && ./run.sh -R -j $RUN_ARGS
       - store_test_results:
           path: wp-e2e-tests/reports/
       - store_artifacts:
