@@ -10,16 +10,10 @@ jobs:
           JETPACKHOST: PRESSABLE
     steps:
       - checkout
-      - restore_cache:
-          key: 'dependency-cache-{{ checksum "wp-e2e-tests/package.json" }}'
       - run: git submodule init
       - run: git submodule update --remote --force
       - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
       - run: cd wp-e2e-tests && npm install
-      - save_cache:
-          key: 'dependency-cache-{{ checksum "wp-e2e-tests/package.json" }}'
-          paths:
-            - ./wp-e2e-tests/node_modules
       - run: cd wp-e2e-tests && npm run decryptconfig && ./run.sh -R -j $RUN_ARGS
       - store_test_results:
           path: wp-e2e-tests/reports/
