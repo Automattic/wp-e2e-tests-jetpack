@@ -18,8 +18,8 @@ jobs:
       - run: cd wp-e2e-tests && npm install
       - save_cache:
           key: 'dependency-cache-{{ checksum "package.json" }}'
-            paths:
-              - ./wp-e2e-tests/node_modules
+          paths:
+            - ./wp-e2e-tests/node_modules
       - run: cd wp-e2e-tests && npm run decryptconfig && ./run.sh -R -j $RUN_ARGS
       - store_test_results:
           path: wp-e2e-tests/reports/
