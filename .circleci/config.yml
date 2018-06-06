@@ -14,6 +14,7 @@ jobs:
       - run: git submodule update --remote --force
       - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
       - run: cd wp-e2e-tests && npm install
+      - run: sudo chmod +x wp-e2e-tests/node_modules/.bin/magellan
       - run: cd wp-e2e-tests && npm run decryptconfig && ./run.sh -R -j $RUN_ARGS
       - store_test_results:
           path: wp-e2e-tests/reports/
